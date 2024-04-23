@@ -80,9 +80,9 @@ const Debt = mongoose.model("Debt", DebtSchema);
 
 const ReceiptSchema = new mongoose.Schema(
   {
-    companyId: { type: mongoose.Schema.Types.ObjectId, ref : "Company"},
+    companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
     worker: { type: mongoose.Schema.Types.ObjectId, ref: "Worker" },
-    customerid: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
+    customerId: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
     detail: [
       {
         date: {
@@ -99,9 +99,11 @@ const ReceiptSchema = new mongoose.Schema(
       },
     ],
     total: { type: Number, required: true },
+    additionalField: { type: String }, // Add additional field here
   },
   { timestamps: true }
 );
+
 
 const Receipt = mongoose.model("Receipt", ReceiptSchema);
 
