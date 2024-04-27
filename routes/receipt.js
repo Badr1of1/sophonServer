@@ -9,7 +9,7 @@ const {
 
 
 router.route("/receipt").post(newReceipts)
-router.route("/receipt:id").delete(delReceipt)
-router.route("/receipts:companyId").get(getAllReceipts)
+router.route("/receipt/:id").delete(delReceipt)
+router.route("/receipts/:companyId").get(getAllReceipts)
 
 module.exports = router

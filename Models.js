@@ -40,7 +40,7 @@ const Inventory = mongoose.model("Inventory", InventorySchema);
 const CustomerSchema = new mongoose.Schema({
   belongsTo: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
   company: { type: String, required: true , unique :  true},
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique : true },
   email: { type: String, required: true, unique: true },
   phone : {type : String, unique : true},
 });
@@ -50,7 +50,7 @@ const Customer = mongoose.model("Customer", CustomerSchema);
 const DebtSchema = new mongoose.Schema(
   {
     worker: { type: mongoose.Schema.Types.ObjectId, ref: "Workers" },
-    customerid: {
+    customerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: true,
@@ -81,7 +81,7 @@ const Debt = mongoose.model("Debt", DebtSchema);
 const ReceiptSchema = new mongoose.Schema(
   {
     companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
-    worker: { type: mongoose.Schema.Types.ObjectId, ref: "Worker" },
+    workerId: { type: mongoose.Schema.Types.ObjectId, ref: "Worker " },
     customerId: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
     detail: [
       {
@@ -91,7 +91,7 @@ const ReceiptSchema = new mongoose.Schema(
         },
         items: [
           {
-            name: { type: mongoose.Schema.Types.ObjectId, ref: "Inventory" },
+            name: { type: String, required: true },
             quantity: { type: Number, required: true, default: 1 },
             price: { type: Number, required: true },
           },
@@ -99,7 +99,6 @@ const ReceiptSchema = new mongoose.Schema(
       },
     ],
     total: { type: Number, required: true },
-    additionalField: { type: String }, // Add additional field here
   },
   { timestamps: true }
 );
