@@ -41,31 +41,18 @@ const newReceipts = async (req, res) => {
     // Extract customer ID
     const customerId = customer._id;
 
-    // Create detail array for receipt
-    const detail = products.map((product) => ({
-      date: new Date(),
-      items: [
-        {
-          name: product.name,
-          quantity: product.quantity,
-          price: product.price,
-        },
-      ],
-    }));
-
     // Create a new receipt instance
     const newReceipt = new Receipt({
       companyId,
       customerId,
       workerId,
-      detail,
+      detail : products,
       total,
     });
 
     // Save the new receipt to the database
     const savedReceipt = await newReceipt.save();
 
-    console.log("Receipt added successfully:", savedReceipt);
     return res.status(201).json(savedReceipt);
   } catch (error) {
     console.error("Error adding receipt:", error);

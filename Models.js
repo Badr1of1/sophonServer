@@ -81,27 +81,14 @@ const Debt = mongoose.model("Debt", DebtSchema);
 const ReceiptSchema = new mongoose.Schema(
   {
     companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
-    workerId: { type: mongoose.Schema.Types.ObjectId, ref: "Worker " },
+    workerId: { type: mongoose.Schema.Types.ObjectId, ref: "Worker" },
     customerId: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
-    detail: [
-      {
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-        items: [
-          {
-            name: { type: String, required: true },
-            quantity: { type: Number, required: true, default: 1 },
-            price: { type: Number, required: true },
-          },
-        ],
-      },
-    ],
+    detail: [],
     total: { type: Number, required: true },
   },
   { timestamps: true }
 );
+
 
 
 const Receipt = mongoose.model("Receipt", ReceiptSchema);
