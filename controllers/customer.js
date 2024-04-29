@@ -19,14 +19,17 @@ const addWorker = async (req, res) => {
 const newCustomer = async (req, res) => {
   try {
     const existingCustomer = await Customer.find({ name: req.body.name });
+    const existingPhone = await Customer.find({ phone: req.body.phone });
+    const existingCompany = await Customer.find({ company: req.body.company });
     const existingEmail = await Customer.find({ email: req.body.email });
-    const existingCompany = await Customer.find({ phone: req.body.phone });
     if (existingCustomer.length > 0) {
       return res.status(400).json({ message: "Customer already exists" });
-    } else if (existingEmail.length > 0) {
+    }else if (existingPhone.length > 0) {
+      return res.status(400).json({ message: "Phone number already registered" });
+    }else if (existingCompany.length > 0) {
+      return res.status(400).json({ message: "Company name exists" });
+    }else if (existingEmail.length > 0) {
       return res.status(400).json({ message: "Email already exists" });
-    } else if (existingCompany.length > 0) {
-      return res.status(400).json({ message: "Company already exists" });
     }
     const customer = new Customer(req.body);
     await customer.save();
