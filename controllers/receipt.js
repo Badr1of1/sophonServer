@@ -3,7 +3,7 @@ const { Receipt, Customer } = require("../Models");
 // get all receipts
 const getAllReceipts = async (req, res) => {
   try {
-    const companyId = req.params.id;
+    const companyId = req.params.companyId;
     const receipts = await Receipt.find({ companyId });
     res.status(201).send(receipts);
   } catch (error) {
