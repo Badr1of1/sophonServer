@@ -8,7 +8,6 @@ const getAllReceipts = async (req, res) => {
     res.status(201).send(receipts);
   } catch (error) {
     res.status(400).send(error);
-    console.log(error);
   }
 };
 
@@ -32,12 +31,12 @@ const newReceipts = async (req, res) => {
 
     // Find the customer by name
     const customer = await Customer.findOne({ name: customerName });
-
+    
     // Check if customer is found
     if (!customer) {
       throw new Error("Customer not found");
     }
-
+    
     // Extract customer ID
     const customerId = customer._id;
 
@@ -52,7 +51,6 @@ const newReceipts = async (req, res) => {
 
     // Save the new receipt to the database
     const savedReceipt = await newReceipt.save();
-
     return res.status(201).json(savedReceipt);
   } catch (error) {
     console.error("Error adding receipt:", error);
