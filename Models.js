@@ -11,17 +11,15 @@ const CompanySchema = new mongoose.Schema({
     },
   ],
   customers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Customer" }],
-  workers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Worker" }]
-
+  workers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Worker" }],
 });
 
 const Company = mongoose.model("Company", CompanySchema);
 
 const WorkerSchema = new mongoose.Schema({
-  companyId : {type : mongoose.Schema.Types.ObjectId , ref : 'Company'},
-  adminstatus : { type: Boolean, enum : [true, false], default: false},
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
+  companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
+  adminstatus: { type: Boolean, enum: [true, false], default: false },
+  name: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
@@ -39,10 +37,10 @@ const Inventory = mongoose.model("Inventory", InventorySchema);
 
 const CustomerSchema = new mongoose.Schema({
   belongsTo: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
-  company: { type: String, required: true , unique :  true},
-  name: { type: String, required: true, unique : true },
-  email: { type: String, required: true, unique: true },
-  phone : {type : String, unique : true},
+  company: { type: String, required: true, unique: true },
+  name: { type: String, required: true, unique: true },
+  email: { type: String, unique: true },
+  phone: { type: String, unique: true },
 });
 
 const Customer = mongoose.model("Customer", CustomerSchema);
@@ -57,26 +55,25 @@ const DebtSchema = new mongoose.Schema(
       index: true,
     },
     debts: {
-        date: {
-          type: Date,
-          required: true,
-          default: Date.now,
-        },
-        amount: {
-          type: Number,
-          required: true,
-        },
-        description: {
-          type: String,
-          required: true,
-        },
+      date: {
+        type: Date,
+        required: true,
+        default: Date.now,
       },
+      amount: {
+        type: Number,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+    },
   },
   { timestamps: true }
 );
 
 const Debt = mongoose.model("Debt", DebtSchema);
-
 
 const ReceiptSchema = new mongoose.Schema(
   {
@@ -88,8 +85,6 @@ const ReceiptSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-
 
 const Receipt = mongoose.model("Receipt", ReceiptSchema);
 
