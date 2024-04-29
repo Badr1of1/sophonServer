@@ -72,13 +72,11 @@ const register = async (req, res) => {
     });
 
     const adminstatus = true;
-    const firstname = "Admin";
-    const lastname = "Admin";
-    const pass = "Admin";
+    const name = "admin";
+    const pass = "admin";
     const createAdmin = await Worker.create({
       adminstatus,
-      firstname,
-      lastname,
+      name,
       password: pass,
     });
 
